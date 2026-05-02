@@ -92,7 +92,7 @@ export async function GET() {
 
     // Subject-wise Breakdown
     const subjects = await prisma.subject.findMany({
-      where: { facultySubjects: { some: { facultyId: session.user.id } } }
+      where: { faculty: { some: { facultyId: session.user.id } } }
     });
 
     const subjectStats = await Promise.all(subjects.map(async (s) => {
