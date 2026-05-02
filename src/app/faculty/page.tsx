@@ -117,6 +117,17 @@ export default function FacultyDashboard() {
         </div>
       </div>
 
+      {data.badges && data.badges.length > 0 && (
+        <div className={styles.badgesSection}>
+          {data.badges.map((badge: any, i: number) => (
+            <div key={i} className={styles.badgeItem} title={badge.desc}>
+              <span className={styles.badgeIcon}>{badge.icon}</span>
+              <span className={styles.badgeName}>{badge.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className={styles.mainGrid}>
         <div className={`card ${styles.chartCard}`}>
           <h3>Performance Trend</h3>

@@ -83,6 +83,13 @@ export async function GET() {
       "Consider using more real-world examples to explain theoretical concepts."
     ];
 
+    // Achievement Badges
+    const badges = [];
+    if (parseFloat(averages.overall) >= 4.5) badges.push({ name: 'Excellence Star', icon: '⭐', desc: 'Maintained an overall rating above 4.5' });
+    if (parseFloat(averages.punctuality) >= 4.8) badges.push({ name: 'Time Master', icon: '🕒', desc: 'Exceptional punctuality record' });
+    if (parseFloat(averages.engagement) >= 4.5) badges.push({ name: 'Student Magnet', icon: '🧲', desc: 'Highest level of student engagement' });
+    if (total >= 10) badges.push({ name: 'Community Favorite', icon: '❤️', desc: 'High volume of student feedback' });
+
     return NextResponse.json({
       totalFeedbacks: total,
       averages,
@@ -91,6 +98,7 @@ export async function GET() {
         summary: aiSummary,
         suggestions: aiSuggestions
       },
+      badges,
       comments: feedbacks.map(f => ({
         id: f.id,
         subject: f.subject.name,

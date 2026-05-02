@@ -175,13 +175,35 @@ export default function StudentDashboard() {
 
             <div className={styles.formGroup}>
               <label>Comments (Optional)</label>
-              <textarea 
-                className="input-field" 
-                rows={4} 
-                value={comments} 
-                onChange={e => setComments(e.target.value)}
-                placeholder="Share your detailed feedback anonymously..."
-              ></textarea>
+              <div className={styles.commentWrapper}>
+                <textarea 
+                  className="input-field" 
+                  rows={4} 
+                  value={comments} 
+                  onChange={e => setComments(e.target.value)}
+                  placeholder="Share your detailed feedback anonymously..."
+                ></textarea>
+                <button 
+                  type="button" 
+                  className={styles.voiceBtn}
+                  onClick={() => {
+                    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+                    if (!SpeechRecognition) {
+                      alert('Voice recognition not supported in this browser.');
+                      return;
+                    }
+                    const recognition = new SpeechRecognition();
+                    recognition.onresult = (event: any) => {
+                      const transcript = event.results[0][0].transcript;
+                      setComments(prev => prev ? prev + ' ' + transcript : transcript);
+                    };
+                    recognition.start();
+                  }}
+                  title="Speak your feedback"
+                >
+                  🎤
+                </button>
+              </div>
             </div>
 
             <div className={styles.formActions}>

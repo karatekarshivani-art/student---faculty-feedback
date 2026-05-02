@@ -152,3 +152,31 @@
   margin-top: 0.5rem;
   text-align: right;
 }
+
+.badgesSection {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.badgeItem {
+  background: white;
+  border: 1px solid var(--card-border);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.badgeIcon {
+  font-size: 1.2rem;
+}
+
+.badgeName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-gray);
+}
