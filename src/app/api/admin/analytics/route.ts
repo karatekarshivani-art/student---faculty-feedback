@@ -83,6 +83,24 @@ export async function GET(request: Request) {
       where: { month: currentMonth, year: currentYear }
     });
 
+    // Recent Activities (Mock/Inferred)
+    const recentFeedbacks = await prisma.feedback.findMany({
+      take: 5,
+      orderBy: { createdAt: 'desc' },
+      include: { faculty: true, subject: true }
+    });
+
+    const recentClaims = await prisma.studentTokenClaim.findMany({
+      take: 5,
+      orderBy: { createdAt: 'desc' },
+      include: { subject: true }
+    });
+
+    const activities = [
+      ...recentFeedbacks.map(f => ({ type: 'FEEDBACK', text: `Anonymous feedback submitted for ${f.faculty.name} (${f.subject.name})`, date: f.createdAt })),
+      ...recentClaims.map(c => ({ type: 'TOKEN', text: `New feedback token generated for ${c.subject.name}`, date: c.createdAt }))
+    ].sort((a: any, b: any) => b.date.getTime() - a.date.getTime()).slice(0, 8);
+
     return NextResponse.json({
       role: session.user.role,
       facultyAnalytics: analytics.sort((a: any, b: any) => b.rating - a.rating),
@@ -90,7 +108,8 @@ export async function GET(request: Request) {
       systemStats: {
         monthlyTotal,
         participationRate,
-        currentMonth: now.toLocaleString('default', { month: 'long' })
+        currentMonth: now.toLocaleString('default', { month: 'long' }),
+        activities
       }
     });
 

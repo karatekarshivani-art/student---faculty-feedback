@@ -128,12 +128,25 @@ export default function PrincipalDashboard() {
 
         <div className={`card ${styles.infoCard}`}>
           <h3>Top Departments</h3>
-          {data.deptStats.sort((a:any, b:any) => b.rating - a.rating).map((d: any, i: number) => (
+          {data.deptStats.sort((a:any, b:any) => b.rating - a.rating).slice(0,3).map((d: any, i: number) => (
             <div key={i} className={styles.deptItem}>
               <span>{d.name}</span>
               <strong>{d.rating}</strong>
             </div>
           ))}
+
+          <h3 style={{marginTop: '2rem'}}>System Audit Trail</h3>
+          <div className={styles.activityList}>
+            {data.systemStats.activities.map((a: any, i: number) => (
+              <div key={i} className={styles.activityItem}>
+                <span className={styles.activityDot} style={{backgroundColor: a.type === 'FEEDBACK' ? 'var(--accent-green)' : 'var(--secondary-blue)'}}></span>
+                <div className={styles.activityText}>
+                  <p>{a.text}</p>
+                  <span>{new Date(a.date).toLocaleTimeString()}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
