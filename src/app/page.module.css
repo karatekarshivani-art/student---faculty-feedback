@@ -3,37 +3,126 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  background: radial-gradient(circle at top right, #EEF2FF, transparent),
+              radial-gradient(circle at bottom left, #F8FAFC, transparent);
+}
+
+:global(.dark-mode) .container {
+  background: radial-gradient(circle at top right, #1E1B4B, transparent),
+              radial-gradient(circle at bottom left, #0F172A, transparent);
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #E0E7FF;
+  color: #4338CA;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
 }
 
 .title {
-  color: var(--primary-blue);
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--foreground);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #3B82F6, #1E3A8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
+  font-size: 1.25rem;
   color: var(--primary-gray);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .roleGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 2rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-}
-
-.roleBtn {
   text-decoration: none;
-  display: block;
-  text-align: center;
-  font-size: 1.1rem;
-  padding: 1rem;
+  color: inherit;
 }
 
-@media (max-width: 600px) {
-  .roleGrid {
-    grid-template-columns: 1fr;
-  }
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--secondary-blue);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.cardIcon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 {
+  color: var(--primary-blue);
+  font-size: 1.25rem;
+}
+
+.card p {
+  color: var(--primary-gray);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.linkText {
+  font-weight: 600;
+  color: var(--secondary-blue);
+  margin-top: auto;
+}
+
+.footer {
+  margin-top: 4rem;
+  font-size: 0.9rem;
+  color: var(--primary-gray);
+  opacity: 0.7;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 2.5rem; }
+  .roleGrid { grid-template-columns: 1fr; }
 }
