@@ -35,6 +35,11 @@ export default function HODDashboard() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/login';
+  };
+
   if (loading) return <div className={styles.container}>Loading department analytics...</div>;
 
   const chartData = {
@@ -52,10 +57,10 @@ export default function HODDashboard() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h2>HOD Dashboard - Dept. Analytics</h2>
+        <h2>HOD Dashboard - {data.facultyAnalytics[0]?.dept || 'Department'}</h2>
         <div style={{display: 'flex', gap: '1rem'}}>
           <button 
-            onClick={() => window.open('/api/admin/export', '_blank')} 
+            onClick={() => window.open('/api/admin/export?dept=' + data.facultyAnalytics[0]?.dept, '_blank')} 
             className="btn-primary" 
             style={{backgroundColor: 'var(--accent-green)'}}
           >
@@ -68,7 +73,7 @@ export default function HODDashboard() {
           >
             Print PDF
           </button>
-          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+          <button onClick={handleLogout} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
         </div>
       </header>
 

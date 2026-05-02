@@ -57,6 +57,11 @@ export default function PrincipalDashboard() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/login';
+  };
+
   if (loading) return <div className={styles.container}>Loading institutional analytics...</div>;
 
   const filteredFaculty = data.facultyAnalytics.filter((f: any) => {
@@ -105,7 +110,7 @@ export default function PrincipalDashboard() {
           >
             Print PDF
           </button>
-          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+          <button onClick={handleLogout} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
         </div>
       </header>
 

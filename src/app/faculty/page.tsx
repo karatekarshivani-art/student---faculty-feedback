@@ -48,6 +48,11 @@ export default function FacultyDashboard() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/login';
+  };
+
   if (loading) return <div className={styles.container}>Loading analytics...</div>;
   if (!data || data.totalFeedbacks === 0) return (
     <div className={styles.container}>
@@ -102,16 +107,13 @@ export default function FacultyDashboard() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h2>Faculty Dashboard</h2>
-        <div style={{display: 'flex', gap: '1rem'}}>
-          <button 
-            onClick={() => window.print()} 
-            className="btn-primary" 
-            style={{backgroundColor: 'var(--primary-blue)'}}
-          >
-            Print PDF Report
-          </button>
-          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        <div className={styles.headerTitle}>
+          <h2>Faculty Dashboard - {data.averages.overall} ⭐</h2>
+          <p>Welcome back! Here is your performance overview.</p>
+        </div>
+        <div className={styles.headerActions}>
+          <button onClick={() => window.print()} className="btn-primary" style={{backgroundColor: 'var(--primary-blue)'}}>Download Report (PDF)</button>
+          <button onClick={handleLogout} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
         </div>
       </header>
 

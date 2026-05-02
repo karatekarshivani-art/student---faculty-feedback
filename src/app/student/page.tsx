@@ -97,6 +97,11 @@ export default function StudentDashboard() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/login';
+  };
+
   if (loading) return <div className={styles.container}>Loading subjects...</div>;
 
   return (
@@ -107,6 +112,10 @@ export default function StudentDashboard() {
             <div className={styles.confetti}>🎉</div>
             <h2>Thank You!</h2>
             <p>Your anonymous feedback has been recorded successfully.</p>
+            <div className={styles.successActions}>
+              <button onClick={() => setShowSuccess(false)} className="btn-primary">Done</button>
+              <button onClick={handleLogout} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+            </div>
           </div>
         </div>
       )}
@@ -116,7 +125,7 @@ export default function StudentDashboard() {
           <div className={styles.countdown}>
             ⏳ Feedback Closes in: <strong>4 days 12h</strong>
           </div>
-          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+          <button onClick={handleLogout} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
         </div>
       </header>
 

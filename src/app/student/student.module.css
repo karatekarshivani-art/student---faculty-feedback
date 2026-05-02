@@ -211,3 +211,11 @@
   50% { transform: translateY(-20px); }
 }
 
+.successActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+
