@@ -21,6 +21,7 @@ export default function PrincipalDashboard() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [deptFilter, setDeptFilter] = useState('ALL');
+  const [selectedFaculty, setSelectedFaculty] = useState<any>(null);
 
   useEffect(() => {
     fetchAnalytics();
@@ -153,7 +154,7 @@ export default function PrincipalDashboard() {
           </thead>
           <tbody>
             {filteredFaculty.map((f: any) => (
-              <tr key={f.id}>
+              <tr key={f.id} onClick={() => setSelectedFaculty(f)} style={{ cursor: 'pointer' }}>
                 <td>{f.name}</td>
                 <td>{f.dept}</td>
                 <td><strong>{f.rating}</strong></td>
@@ -168,6 +169,43 @@ export default function PrincipalDashboard() {
           </tbody>
         </table>
       </div>
+
+      {selectedFaculty && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedFaculty(null)}>
+          <div className={`card ${styles.modalContent}`} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2>{selectedFaculty.name}</h2>
+              <button className={styles.closeBtn} onClick={() => setSelectedFaculty(null)}>×</button>
+            </div>
+            <div className={styles.modalGrid}>
+              <div className={styles.modalStat}>
+                <span>Overall Rating</span>
+                <strong>{selectedFaculty.rating}</strong>
+              </div>
+              <div className={styles.modalStat}>
+                <span>Total Feedbacks</span>
+                <strong>{selectedFaculty.count}</strong>
+              </div>
+              <div className={styles.modalStat}>
+                <span>Department</span>
+                <strong>{selectedFaculty.dept}</strong>
+              </div>
+            </div>
+            
+            <h4 style={{marginTop: '1.5rem'}}>Sentiment Breakdown</h4>
+            <div className={styles.sentBar}>
+              <div style={{width: `${(selectedFaculty.sentiment.positive/selectedFaculty.count)*100}%`, background: 'var(--accent-green)'}}></div>
+              <div style={{width: `${(selectedFaculty.sentiment.neutral/selectedFaculty.count)*100}%`, background: 'var(--accent-yellow)'}}></div>
+              <div style={{width: `${(selectedFaculty.sentiment.negative/selectedFaculty.count)*100}%`, background: 'var(--accent-red)'}}></div>
+            </div>
+            <div className={styles.sentLegend}>
+              <span>Positive ({selectedFaculty.sentiment.positive})</span>
+              <span>Neutral ({selectedFaculty.sentiment.neutral})</span>
+              <span>Negative ({selectedFaculty.sentiment.negative})</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

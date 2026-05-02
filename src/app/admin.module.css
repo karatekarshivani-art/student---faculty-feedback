@@ -134,3 +134,84 @@
 .tagGood { background: #D1FAE5; color: #065F46; }
 .tagAvg { background: #FEF3C7; color: #92400E; }
 .tagPoor { background: #FEE2E2; color: #991B1B; }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.modalContent {
+  width: 100%;
+  max-width: 500px;
+  animation: modalIn 0.3s ease-out;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--primary-gray);
+  cursor: pointer;
+}
+
+.modalGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.modalStat {
+  text-align: center;
+  padding: 1rem;
+  background: var(--background);
+  border-radius: var(--radius);
+}
+
+.modalStat span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--primary-gray);
+  margin-bottom: 0.25rem;
+}
+
+.modalStat strong {
+  font-size: 1.25rem;
+  color: var(--primary-blue);
+}
+
+.sentBar {
+  display: flex;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.sentLegend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--primary-gray);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
