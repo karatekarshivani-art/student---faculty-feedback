@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id             String       @id @default(uuid())
+  email          String       @unique
+  passwordHash   String
+  role           String       @default("STUDENT") // STUDENT, FACULTY, HOD, PRINCIPAL
+  name           String
+  departmentId   String?
+  department     Department?  @relation(fields: [departmentId], references: [id])
+  
+  studentSubjects StudentSubject[]
+  facultySubjects FacultySubject[]
+  feedbacks       Feedback[]
+}
+
+model Department {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  users     User[]
+  subjects  Subject[]
+}
+
+model Subject {
+  id            String       @id @default(uuid())
+  name          String
+  departmentId  String
+  department    Department   @relation(fields: [departmentId], references: [id])
+  
+  faculty       FacultySubject[]
+  students      StudentSubject[]
+  feedbacks     Feedback[]
+  tokens        FeedbackToken[]
+}
+
+model FacultySubject {
+  id        String   @id @default(uuid())
+  facultyId String
+  subjectId String
+  user      User     @relation(fields: [facultyId], references: [id])
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+
+  @@unique([facultyId, subjectId])
+}
+
+model StudentSubject {
+  id        String   @id @default(uuid())
+  studentId String
+  subjectId String
+  user      User     @relation(fields: [studentId], references: [id])
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+
+  @@unique([studentId, subjectId])
+}
+
+model Feedback {
+  id                String   @id @default(uuid())
+  subjectId         String
+  facultyId         String
+  month             Int
+  year              Int
+  teachingClarity   Int
+  engagement        Int
+  punctuality       Int
+  subjectKnowledge  Int
+  comments          String?
+  sentiment         String?  // POSITIVE, NEUTRAL, NEGATIVE
+  
+  subject           Subject  @relation(fields: [subjectId], references: [id])
+  faculty           User     @relation(fields: [facultyId], references: [id])
+  createdAt         DateTime @default(now())
+}
+
+model FeedbackToken {
+  id          String   @id @default(uuid())
+  tokenHash   String   @unique
+  subjectId   String
+  month       Int
+  year        Int
+  isUsed      Boolean  @default(false)
+  
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+}
