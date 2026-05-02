@@ -145,6 +145,10 @@ export default function FacultyDashboard() {
               <span className={styles.badgeIcon}>{badge.icon}</span>
               <span className={styles.badgeName}>{badge.name}</span>
             </div>
+          ))}
+        </div>
+      )}
+
       <div className={styles.mainGrid}>
         <div className={`card ${styles.chartCard}`}>
           <h3>Subject Comparison</h3>
@@ -158,22 +162,16 @@ export default function FacultyDashboard() {
         </div>
 
         <div className={`card ${styles.aiCard}`}>
-          <h3>AI Insights & Suggestions</h3>
-          <div className={styles.insights}>
-            <div className={styles.badgeList}>
-              {data.badges.map((b: any, i: number) => (
-                <div key={i} className={styles.badgeItem} title={b.desc}>
-                  <span className={styles.badgeIcon}>{b.icon}</span>
-                  <span className={styles.badgeName}>{b.name}</span>
-                </div>
-              ))}
-            </div>
-            <ul className={styles.suggestions}>
-              {data.aiInsights.suggestions.map((s: string, i: number) => (
-                <li key={i}>{s}</li>
-              ))}
-            </ul>
+          <h3>AI Smart Insights 🧠</h3>
+          <div className={styles.aiSummary}>
+            <p>{data.aiInsights.summary}</p>
           </div>
+          <h4>Actionable Suggestions:</h4>
+          <ul className={styles.suggestionList}>
+            {data.aiInsights.suggestions.map((s: string, i: number) => (
+              <li key={i}>{s}</li>
+            ))}
+          </ul>
         </div>
       </div>
 
