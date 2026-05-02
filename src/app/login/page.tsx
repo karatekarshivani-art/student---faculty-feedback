@@ -54,52 +54,66 @@ function LoginForm() {
 
   return (
     <div className={styles.container}>
-      <div className={`card ${styles.loginCard}`}>
-        <h2 className={styles.title}>{role} Login</h2>
+      <div className={styles.loginWrapper}>
+        <div className={styles.brand}>
+          <h1>CampusIQ</h1>
+          <p>Feedback & Analytics</p>
+        </div>
         
-        {error && <div className={styles.errorAlert}>{error}</div>}
-
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label>Email</label>
-            <input 
-              type="email" 
-              className="input-field" 
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required 
-            />
-          </div>
+        <div className={`card ${styles.loginCard}`}>
+          <h2 className={styles.title}>{role.toLowerCase()} login</h2>
           
-          <div className={styles.formGroup}>
-            <label>Password</label>
-            <input 
-              type="password" 
-              className="input-field" 
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required 
-            />
-          </div>
+          {error && <div className={styles.errorAlert}>{error}</div>}
 
-          <div className={styles.formGroup}>
-            <label>Role</label>
-            <select 
-              className="input-field" 
-              value={role} 
-              onChange={e => setRole(e.target.value)}
-            >
-              <option value="STUDENT">Student</option>
-              <option value="FACULTY">Faculty</option>
-              <option value="HOD">HOD</option>
-              <option value="PRINCIPAL">Principal</option>
-            </select>
-          </div>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label>Institutional Email</label>
+              <input 
+                type="email" 
+                className="input-field" 
+                placeholder="email@college.edu"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required 
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label>Password</label>
+              <input 
+                type="password" 
+                className="input-field" 
+                placeholder="••••••••"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required 
+              />
+            </div>
 
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
+            <div className={styles.roleTabs}>
+              {['STUDENT', 'FACULTY', 'HOD', 'PRINCIPAL'].map(r => (
+                <button 
+                  key={r}
+                  type="button"
+                  className={`${styles.roleTab} ${role === r ? styles.active : ''}`}
+                  onClick={() => setRole(r)}
+                >
+                  {r.charAt(0) + r.slice(1).toLowerCase()}
+                </button>
+              ))}
+            </div>
+
+            <button type="submit" className="btn-primary" disabled={loading} style={{marginTop: '1rem'}}>
+              {loading ? 'Authenticating...' : 'Sign In'}
+            </button>
+          </form>
+          
+          <p className={styles.footerText}>
+            Protected by CampusIQ Secure Anonymity Layer
+          </p>
+        </div>
+        
+        <Link href="/" className={styles.backLink}>← Back to Home</Link>
       </div>
     </div>
   );
@@ -107,7 +121,7 @@ function LoginForm() {
 
 export default function Login() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading login...</div>}>
       <LoginForm />
     </Suspense>
   );
