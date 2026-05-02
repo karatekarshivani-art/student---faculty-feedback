@@ -101,5 +101,7 @@ model StudentTokenClaim {
   user    User    @relation(fields: [studentId], references: [id])
   subject Subject @relation(fields: [subjectId], references: [id])
 
+  createdAt DateTime @default(now())
+
   @@unique([studentId, subjectId, month, year])
 }
