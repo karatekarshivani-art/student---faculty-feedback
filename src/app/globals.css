@@ -29,6 +29,41 @@
   }
 }
 
+/* Manual Dark Mode */
+.dark-mode {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  
+  --card-bg: #1E293B;
+  --card-border: #334155;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.theme-toggle button {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.theme-toggle button:hover {
+  transform: scale(1.1);
+  background: var(--secondary-blue);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

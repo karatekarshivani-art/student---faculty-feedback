@@ -100,7 +100,12 @@ export default function StudentDashboard() {
     <div className={styles.container}>
       <header className={styles.header}>
         <h2>Student Dashboard</h2>
-        <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        <div className={styles.headerActions}>
+          <div className={styles.countdown}>
+            ⏳ Feedback Closes in: <strong>4 days 12h</strong>
+          </div>
+          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        </div>
       </header>
 
       {!selectedSubject ? (

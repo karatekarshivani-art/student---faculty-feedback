@@ -17,6 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div className="theme-toggle">
+          <button onClick={() => {
+            document.documentElement.classList.toggle('dark-mode');
+          }} title="Toggle Dark Mode">
+            🌓
+          </button>
+        </div>
         <main className="main-container">
           {children}
         </main>
