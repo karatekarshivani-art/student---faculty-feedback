@@ -1,0 +1,39 @@
+.container {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  color: var(--primary-blue);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--primary-gray);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.roleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.roleBtn {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  .roleGrid {
+    grid-template-columns: 1fr;
+  }
+}

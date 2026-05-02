@@ -1,0 +1,120 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summaryCard {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.bigNum {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-blue);
+  margin-top: 0.5rem;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chartCard {
+  min-height: 400px;
+}
+
+.chartWrapper {
+  height: 300px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.infoColumn, .infoCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.summaryStat {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.deptItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--background);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th {
+  text-align: left;
+  padding: 1rem;
+  background: var(--secondary-gray);
+  color: var(--primary-gray);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 0.95rem;
+}
+
+.sentDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.tagGood, .tagAvg, .tagPoor {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.tagGood { background: #D1FAE5; color: #065F46; }
+.tagAvg { background: #FEF3C7; color: #92400E; }
+.tagPoor { background: #FEE2E2; color: #991B1B; }

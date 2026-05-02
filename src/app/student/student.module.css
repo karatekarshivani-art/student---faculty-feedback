@@ -1,0 +1,110 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.subjectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.subjectCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.subjectCard h3 {
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.subjectCard p {
+  color: var(--primary-gray);
+  font-size: 0.9rem;
+}
+
+.claimedBadge {
+  margin-top: 1rem;
+  background-color: var(--secondary-gray);
+  color: var(--primary-gray);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.feedbackFormCard {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.anonymityAlert {
+  background-color: #EFF6FF;
+  border-left: 4px solid var(--secondary-blue);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  color: var(--primary-blue);
+}
+
+.errorAlert {
+  background-color: #FEF2F2;
+  color: var(--accent-red);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #FCA5A5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: var(--primary-gray);
+}
+
+.formGroup span {
+  font-weight: bold;
+  color: var(--primary-blue);
+  text-align: right;
+}
+
+.formActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.formActions button {
+  flex: 1;
+}
+
+.formGroup input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary-blue);
+}

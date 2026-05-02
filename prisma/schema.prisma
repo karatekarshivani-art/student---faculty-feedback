@@ -4,86 +4,102 @@ generator client {
 
 datasource db {
   provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
-  id             String       @id @default(uuid())
-  email          String       @unique
-  passwordHash   String
-  role           String       @default("STUDENT") // STUDENT, FACULTY, HOD, PRINCIPAL
-  name           String
-  departmentId   String?
-  department     Department?  @relation(fields: [departmentId], references: [id])
-  
-  studentSubjects StudentSubject[]
-  facultySubjects FacultySubject[]
-  feedbacks       Feedback[]
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String
+  role         String      @default("STUDENT") // STUDENT, FACULTY, HOD, PRINCIPAL
+  name         String
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  studentSubjects    StudentSubject[]
+  facultySubjects    FacultySubject[]
+  feedbacks          Feedback[]
+  studentTokenClaims StudentTokenClaim[]
 }
 
 model Department {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  users     User[]
-  subjects  Subject[]
+  id       String    @id @default(uuid())
+  name     String    @unique
+  users    User[]
+  subjects Subject[]
 }
 
 model Subject {
-  id            String       @id @default(uuid())
-  name          String
-  departmentId  String
-  department    Department   @relation(fields: [departmentId], references: [id])
-  
-  faculty       FacultySubject[]
-  students      StudentSubject[]
-  feedbacks     Feedback[]
-  tokens        FeedbackToken[]
+  id           String     @id @default(uuid())
+  name         String
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  faculty            FacultySubject[]
+  students           StudentSubject[]
+  feedbacks          Feedback[]
+  tokens             FeedbackToken[]
+  studentTokenClaims StudentTokenClaim[]
 }
 
 model FacultySubject {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   facultyId String
   subjectId String
-  user      User     @relation(fields: [facultyId], references: [id])
-  subject   Subject  @relation(fields: [subjectId], references: [id])
+  user      User    @relation(fields: [facultyId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
 
   @@unique([facultyId, subjectId])
 }
 
 model StudentSubject {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   studentId String
   subjectId String
-  user      User     @relation(fields: [studentId], references: [id])
-  subject   Subject  @relation(fields: [subjectId], references: [id])
+  user      User    @relation(fields: [studentId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
 
   @@unique([studentId, subjectId])
 }
 
 model Feedback {
-  id                String   @id @default(uuid())
-  subjectId         String
-  facultyId         String
-  month             Int
-  year              Int
-  teachingClarity   Int
-  engagement        Int
-  punctuality       Int
-  subjectKnowledge  Int
-  comments          String?
-  sentiment         String?  // POSITIVE, NEUTRAL, NEGATIVE
-  
-  subject           Subject  @relation(fields: [subjectId], references: [id])
-  faculty           User     @relation(fields: [facultyId], references: [id])
-  createdAt         DateTime @default(now())
+  id               String  @id @default(uuid())
+  subjectId        String
+  facultyId        String
+  month            Int
+  year             Int
+  teachingClarity  Int
+  engagement       Int
+  punctuality      Int
+  subjectKnowledge Int
+  comments         String?
+  sentiment        String? // POSITIVE, NEUTRAL, NEGATIVE
+
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+  faculty   User     @relation(fields: [facultyId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model FeedbackToken {
-  id          String   @id @default(uuid())
-  tokenHash   String   @unique
-  subjectId   String
-  month       Int
-  year        Int
-  isUsed      Boolean  @default(false)
-  
-  subject     Subject  @relation(fields: [subjectId], references: [id])
+  id        String  @id @default(uuid())
+  tokenHash String  @unique
+  subjectId String
+  month     Int
+  year      Int
+  isUsed    Boolean @default(false)
+
+  subject Subject @relation(fields: [subjectId], references: [id])
+}
+
+model StudentTokenClaim {
+  id        String @id @default(uuid())
+  studentId String
+  subjectId String
+  month     Int
+  year      Int
+
+  user    User    @relation(fields: [studentId], references: [id])
+  subject Subject @relation(fields: [subjectId], references: [id])
+
+  @@unique([studentId, subjectId, month, year])
 }
