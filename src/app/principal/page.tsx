@@ -19,6 +19,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tool
 export default function PrincipalDashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [deptFilter, setDeptFilter] = useState('ALL');
 
   useEffect(() => {
     fetchAnalytics();
@@ -37,6 +39,12 @@ export default function PrincipalDashboard() {
   };
 
   if (loading) return <div className={styles.container}>Loading institutional analytics...</div>;
+
+  const filteredFaculty = data.facultyAnalytics.filter((f: any) => {
+    const matchesSearch = f.name.toLowerCase().includes(search.toLowerCase());
+    const matchesDept = deptFilter === 'ALL' || f.dept === deptFilter;
+    return matchesSearch && matchesDept;
+  });
 
   const deptChartData = {
     labels: data.deptStats.map((d: any) => d.name),
@@ -109,7 +117,30 @@ export default function PrincipalDashboard() {
       </div>
 
       <div className="card">
-        <h3>All Faculty Performance Ranking</h3>
+        <div className={styles.tableHeader}>
+          <h3>All Faculty Performance Ranking</h3>
+          <div className={styles.controls}>
+            <input 
+              type="text" 
+              className="input-field" 
+              placeholder="Search faculty..." 
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{ maxWidth: '250px' }}
+            />
+            <select 
+              className="input-field" 
+              value={deptFilter}
+              onChange={e => setDeptFilter(e.target.value)}
+              style={{ maxWidth: '200px' }}
+            >
+              <option value="ALL">All Departments</option>
+              {data.deptStats.map((d: any) => (
+                <option key={d.name} value={d.name}>{d.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -121,7 +152,7 @@ export default function PrincipalDashboard() {
             </tr>
           </thead>
           <tbody>
-            {data.facultyAnalytics.map((f: any) => (
+            {filteredFaculty.map((f: any) => (
               <tr key={f.id}>
                 <td>{f.name}</td>
                 <td>{f.dept}</td>
