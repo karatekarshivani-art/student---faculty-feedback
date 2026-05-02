@@ -155,3 +155,59 @@
   background: var(--secondary-blue);
   color: white;
 }
+
+.successOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+:global(.dark-mode) .successOverlay {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.successContent {
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.confetti {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  animation: bounce 1s infinite;
+}
+
+.successContent h2 {
+  font-size: 2.5rem;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+}
+
+.successContent p {
+  font-size: 1.1rem;
+  color: var(--primary-gray);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+

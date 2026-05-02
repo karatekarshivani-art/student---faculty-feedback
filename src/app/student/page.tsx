@@ -8,6 +8,7 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true);
   const [selectedSubject, setSelectedSubject] = useState<any>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Feedback Form State
   const [facultyId, setFacultyId] = useState('');
@@ -85,6 +86,8 @@ export default function StudentDashboard() {
         setFormStatus({ loading: false, error: '', success: true });
         setToken(null);
         setSelectedSubject(null);
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 5000);
         fetchSubjects(); // Refresh lists
       } else {
         setFormStatus({ loading: false, error: data.error, success: false });
@@ -98,6 +101,15 @@ export default function StudentDashboard() {
 
   return (
     <div className={styles.container}>
+      {showSuccess && (
+        <div className={styles.successOverlay}>
+          <div className={styles.successContent}>
+            <div className={styles.confetti}>🎉</div>
+            <h2>Thank You!</h2>
+            <p>Your anonymous feedback has been recorded successfully.</p>
+          </div>
+        </div>
+      )}
       <header className={styles.header}>
         <h2>Student Dashboard</h2>
         <div className={styles.headerActions}>
