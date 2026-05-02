@@ -91,7 +91,16 @@ export default function FacultyDashboard() {
     <div className={styles.container}>
       <header className={styles.header}>
         <h2>Faculty Dashboard</h2>
-        <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        <div style={{display: 'flex', gap: '1rem'}}>
+          <button 
+            onClick={() => window.print()} 
+            className="btn-primary" 
+            style={{backgroundColor: 'var(--primary-blue)'}}
+          >
+            Print PDF Report
+          </button>
+          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        </div>
       </header>
 
       <div className={styles.statsGrid}>

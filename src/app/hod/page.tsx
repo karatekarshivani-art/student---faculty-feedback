@@ -61,6 +61,13 @@ export default function HODDashboard() {
           >
             Export CSV
           </button>
+          <button 
+            onClick={() => window.print()} 
+            className="btn-primary" 
+            style={{backgroundColor: 'var(--primary-blue)'}}
+          >
+            Print PDF
+          </button>
           <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
         </div>
       </header>
