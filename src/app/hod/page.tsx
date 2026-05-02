@@ -101,6 +101,18 @@ export default function HODDashboard() {
               <strong>{(data.facultyAnalytics.reduce((acc: any, f: any) => acc + parseFloat(f.rating), 0) / data.facultyAnalytics.length || 0).toFixed(2)}</strong>
             </div>
           </div>
+
+          <div className={`card ${styles.summaryCard}`} style={{marginTop: '1.5rem'}}>
+            <h4>Subject Performance</h4>
+            <div className={styles.subjectList}>
+              {data.subjectStats.map((s: any, i: number) => (
+                <div key={i} className={styles.subjectMiniRow}>
+                  <span>{s.name}</span>
+                  <strong>{s.rating}</strong>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

@@ -293,5 +293,30 @@
   color: var(--primary-gray);
 }
 
+.subjectList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.subjectMiniRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background: var(--background);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+}
+
+.subjectMiniRow span {
+  color: var(--primary-gray);
+}
+
+.subjectMiniRow strong {
+  color: var(--primary-blue);
+}
+
+
 
 

@@ -101,10 +101,26 @@ export async function GET(request: Request) {
       ...recentClaims.map(c => ({ type: 'TOKEN', text: `New feedback token generated for ${c.subject.name}`, date: c.createdAt }))
     ].sort((a: any, b: any) => b.date.getTime() - a.date.getTime()).slice(0, 8);
 
+    // Subject-wise Performance
+    const subjectList = await prisma.subject.findMany({
+      where: departmentId ? { departmentId } : {}
+    });
+
+    const subjectStats = await Promise.all(subjectList.map(async (s) => {
+      const feedback = await prisma.feedback.findMany({
+        where: { subjectId: s.id }
+      });
+      const avg = feedback.length > 0 
+        ? feedback.reduce((acc, f) => acc + (f.teachingClarity + f.engagement + f.punctuality + f.subjectKnowledge) / 4, 0) / feedback.length 
+        : 0;
+      return { name: s.name, rating: avg.toFixed(2), count: feedback.length };
+    }));
+
     return NextResponse.json({
       role: session.user.role,
       facultyAnalytics: analytics.sort((a: any, b: any) => b.rating - a.rating),
       deptStats,
+      subjectStats,
       systemStats: {
         monthlyTotal,
         participationRate,
