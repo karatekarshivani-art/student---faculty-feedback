@@ -109,10 +109,32 @@
 }
 
 .commentItem {
+  display: flex;
+  gap: 1rem;
   padding: 1rem;
   border-radius: var(--radius);
   background: var(--background);
   border-left: 4px solid var(--secondary-blue);
+}
+
+.commentSide {
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #1e293b;
+  text-transform: uppercase;
+}
+
+.commentBody {
+  flex-grow: 1;
 }
 
 .commentHeader {

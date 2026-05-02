@@ -172,15 +172,22 @@ export default function FacultyDashboard() {
           <div className={styles.commentList}>
             {data.comments.filter((c: any) => c.text).map((c: any) => (
               <div key={c.id} className={styles.commentItem}>
-                <div className={styles.commentHeader}>
-                  <span className={styles.subjectTag}>{c.subject}</span>
-                  <span className={`${styles.sentimentTag} ${styles[c.sentiment.toLowerCase()]}`}>
-                    {c.sentiment}
-                  </span>
+                <div className={styles.commentSide}>
+                  <div className={styles.avatar} style={{ backgroundColor: `hsl(${c.id.charCodeAt(0) * 137.5 % 360}, 70%, 80%)` }}>
+                    {c.subject.charAt(0)}
+                  </div>
                 </div>
-                <p>"{c.text}"</p>
-                <div className={styles.commentDate}>
-                  {new Date(c.date).toLocaleDateString()}
+                <div className={styles.commentBody}>
+                  <div className={styles.commentHeader}>
+                    <span className={styles.subjectTag}>{c.subject}</span>
+                    <span className={`${styles.sentimentTag} ${styles[c.sentiment.toLowerCase()]}`}>
+                      {c.sentiment}
+                    </span>
+                  </div>
+                  <p>"{c.text}"</p>
+                  <div className={styles.commentDate}>
+                    {new Date(c.date).toLocaleDateString()}
+                  </div>
                 </div>
               </div>
             ))}
