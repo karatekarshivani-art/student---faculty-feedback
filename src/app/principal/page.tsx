@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
+import Link from 'next/link';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -107,6 +108,12 @@ export default function PrincipalDashboard() {
           <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
         </div>
       </header>
+
+      <div style={{marginBottom: '2rem'}}>
+        <Link href="/principal/manage" className="btn-primary" style={{backgroundColor: 'var(--primary-blue)', textDecoration: 'none'}}>
+          ⚙️ Manage Users, Departments & Subjects
+        </Link>
+      </div>
 
       <div className={styles.statsRow}>
         <div className={`card ${styles.summaryCard}`}>

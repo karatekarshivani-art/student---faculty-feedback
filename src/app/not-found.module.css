@@ -1,0 +1,52 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #EEF2FF, transparent);
+  padding: 2rem;
+}
+
+:global(.dark-mode) .container {
+  background: radial-gradient(circle at center, #1E1B4B, transparent);
+}
+
+.content {
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.code {
+  font-size: 8rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, #3B82F6, #1E3A8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--primary-gray);
+  max-width: 450px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.homeBtn {
+  text-decoration: none;
+  display: inline-block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

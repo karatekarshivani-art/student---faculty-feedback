@@ -1,0 +1,108 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.backBtn {
+  text-decoration: none;
+  color: var(--primary-gray);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.backBtn:hover {
+  color: var(--primary-blue);
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 1rem;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-gray);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+
+.tab.active {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 2px solid var(--card-border);
+  color: var(--primary-gray);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 0.95rem;
+}
+
+.roleTag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.STUDENT { background: #E0F2FE; color: #0369A1; }
+.FACULTY { background: #F0FDF4; color: #15803D; }
+.HOD { background: #FEF3C7; color: #92400E; }
+.PRINCIPAL { background: #FEE2E2; color: #991B1B; }
+
+.editBtn, .deleteBtn {
+  background: none;
+  border: none;
+  margin-right: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.editBtn { color: var(--primary-blue); }
+.deleteBtn { color: var(--accent-red); }
+
+@media (max-width: 768px) {
+  .tabs { overflow-x: auto; }
+  .table { display: block; overflow-x: auto; }
+}
