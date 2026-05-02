@@ -101,6 +101,19 @@ export default function PrincipalDashboard() {
         </div>
       </div>
 
+      <div className={styles.systemHealthRow}>
+        <div className={`card ${styles.healthCard}`}>
+          <div className={styles.healthLabel}>Current Month Participation ({data.systemStats.currentMonth})</div>
+          <div className={styles.healthValue}>
+            <span>Total Submissions: <strong>{data.systemStats.monthlyTotal}</strong></span>
+            <span>Token Claims: <strong>{data.systemStats.participationRate}</strong></span>
+          </div>
+          <div className={styles.healthBar}>
+            <div style={{ width: `${Math.min((data.systemStats.monthlyTotal / (data.systemStats.participationRate || 1)) * 100, 100)}%` }}></div>
+          </div>
+        </div>
+      </div>
+
       <div className={styles.mainGrid}>
         <div className={`card ${styles.chartCard}`}>
           <h3>Department Performance</h3>

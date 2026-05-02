@@ -70,10 +70,28 @@ export async function GET(request: Request) {
       }));
     }
 
+    // System Health / Monthly Stats
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
+
+    const monthlyTotal = await prisma.feedback.count({
+      where: { month: currentMonth, year: currentYear }
+    });
+
+    const participationRate = await prisma.studentTokenClaim.count({
+      where: { month: currentMonth, year: currentYear }
+    });
+
     return NextResponse.json({
       role: session.user.role,
       facultyAnalytics: analytics.sort((a: any, b: any) => b.rating - a.rating),
-      deptStats
+      deptStats,
+      systemStats: {
+        monthlyTotal,
+        participationRate,
+        currentMonth: now.toLocaleString('default', { month: 'long' })
+      }
     });
 
   } catch (error) {

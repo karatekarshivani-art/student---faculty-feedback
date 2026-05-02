@@ -215,3 +215,50 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+.systemHealthRow {
+  margin-bottom: 2rem;
+}
+
+.healthCard {
+  background: linear-gradient(135deg, #F8FAFC, #EFF6FF);
+  border-left: 5px solid var(--secondary-blue);
+}
+
+:global(.dark-mode) .healthCard {
+  background: linear-gradient(135deg, #1E293B, #0F172A);
+}
+
+.healthLabel {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.healthValue {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--primary-gray);
+}
+
+.healthValue strong {
+  color: var(--foreground);
+}
+
+.healthBar {
+  height: 8px;
+  background: var(--secondary-gray);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.healthBar div {
+  height: 100%;
+  background: var(--secondary-blue);
+  transition: width 0.5s ease-out;
+}
+
+
