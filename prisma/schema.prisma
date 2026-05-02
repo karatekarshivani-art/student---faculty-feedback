@@ -105,3 +105,11 @@ model StudentTokenClaim {
 
   @@unique([studentId, subjectId, month, year])
 }
+
+model SystemSettings {
+  id              String  @id @default("GLOBAL")
+  feedbackEnabled Boolean @default(true)
+  currentMonth    Int
+  currentYear     Int
+}
+

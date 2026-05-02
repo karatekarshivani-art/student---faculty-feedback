@@ -21,6 +21,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    // Check global settings
+    const settings = await prisma.systemSettings.findUnique({ where: { id: 'GLOBAL' } });
+    if (settings && !settings.feedbackEnabled) {
+      return NextResponse.json({ error: 'Feedback window is currently closed by the administration.' }, { status: 403 });
+    }
+
     const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
 
     // Find and validate the token

@@ -22,10 +22,27 @@ export default function PrincipalDashboard() {
   const [search, setSearch] = useState('');
   const [deptFilter, setDeptFilter] = useState('ALL');
   const [selectedFaculty, setSelectedFaculty] = useState<any>(null);
+  const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
     fetchAnalytics();
+    fetchSettings();
   }, []);
+
+  const fetchSettings = async () => {
+    const res = await fetch('/api/admin/settings');
+    const json = await res.json();
+    setSettings(json);
+  };
+
+  const toggleFeedback = async () => {
+    const newVal = !settings.feedbackEnabled;
+    const res = await fetch('/api/admin/settings', {
+      method: 'POST',
+      body: JSON.stringify({ ...settings, feedbackEnabled: newVal })
+    });
+    if (res.ok) setSettings(await res.json());
+  };
 
   const fetchAnalytics = async () => {
     try {
@@ -64,6 +81,15 @@ export default function PrincipalDashboard() {
       <header className={styles.header}>
         <h2>Principal Dashboard - Institutional Overview</h2>
         <div style={{display: 'flex', gap: '1rem'}}>
+          {settings && (
+            <button 
+              onClick={toggleFeedback} 
+              className="btn-primary" 
+              style={{backgroundColor: settings.feedbackEnabled ? 'var(--accent-red)' : 'var(--accent-green)'}}
+            >
+              {settings.feedbackEnabled ? 'Close Feedback Window' : 'Open Feedback Window'}
+            </button>
+          )}
           <button 
             onClick={() => window.open('/api/admin/export', '_blank')} 
             className="btn-primary" 
