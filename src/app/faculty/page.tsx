@@ -59,6 +59,18 @@ export default function FacultyDashboard() {
     </div>
   );
 
+  const subjectChartData = {
+    labels: data?.subjectStats?.map((s: any) => s.name) || [],
+    datasets: [
+      {
+        label: 'Subject Rating',
+        data: data?.subjectStats?.map((s: any) => s.rating) || [],
+        backgroundColor: '#3B82F6',
+        borderRadius: 4,
+      },
+    ],
+  };
+
   const trendData = {
     labels: data.trends.map((t: any) => t.label),
     datasets: [
@@ -133,29 +145,35 @@ export default function FacultyDashboard() {
               <span className={styles.badgeIcon}>{badge.icon}</span>
               <span className={styles.badgeName}>{badge.name}</span>
             </div>
-          ))}
-        </div>
-      )}
-
       <div className={styles.mainGrid}>
         <div className={`card ${styles.chartCard}`}>
-          <h3>Performance Trend</h3>
+          <h3>Subject Comparison</h3>
           <div className={styles.chartWrapper}>
-            <Line data={trendData} options={{ responsive: true, maintainAspectRatio: false }} />
+            <Bar data={subjectChartData} options={{ 
+              responsive: true, 
+              maintainAspectRatio: false,
+              scales: { y: { min: 0, max: 5 } }
+            }} />
           </div>
         </div>
 
         <div className={`card ${styles.aiCard}`}>
-          <h3>AI Smart Insights 🧠</h3>
-          <div className={styles.aiSummary}>
-            <p>{data.aiInsights.summary}</p>
+          <h3>AI Insights & Suggestions</h3>
+          <div className={styles.insights}>
+            <div className={styles.badgeList}>
+              {data.badges.map((b: any, i: number) => (
+                <div key={i} className={styles.badgeItem} title={b.desc}>
+                  <span className={styles.badgeIcon}>{b.icon}</span>
+                  <span className={styles.badgeName}>{b.name}</span>
+                </div>
+              ))}
+            </div>
+            <ul className={styles.suggestions}>
+              {data.aiInsights.suggestions.map((s: string, i: number) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
           </div>
-          <h4>Actionable Suggestions:</h4>
-          <ul className={styles.suggestionList}>
-            {data.aiInsights.suggestions.map((s: string, i: number) => (
-              <li key={i}>{s}</li>
-            ))}
-          </ul>
         </div>
       </div>
 

@@ -90,6 +90,19 @@ export async function GET() {
     if (parseFloat(averages.engagement) >= 4.5) badges.push({ name: 'Student Magnet', icon: '🧲', desc: 'Highest level of student engagement' });
     if (total >= 10) badges.push({ name: 'Community Favorite', icon: '❤️', desc: 'High volume of student feedback' });
 
+    // Subject-wise Breakdown
+    const subjects = await prisma.subject.findMany({
+      where: { facultySubjects: { some: { facultyId: session.user.id } } }
+    });
+
+    const subjectStats = await Promise.all(subjects.map(async (s) => {
+      const fb = feedbacks.filter(f => f.subjectId === s.id);
+      const avg = fb.length > 0 
+        ? fb.reduce((acc, f) => acc + (f.teachingClarity + f.engagement + f.punctuality + f.subjectKnowledge) / 4, 0) / fb.length 
+        : 0;
+      return { name: s.name, rating: avg.toFixed(2), count: fb.length };
+    }));
+
     return NextResponse.json({
       totalFeedbacks: total,
       averages,
@@ -99,6 +112,7 @@ export async function GET() {
         suggestions: aiSuggestions
       },
       badges,
+      subjectStats,
       comments: feedbacks.map(f => ({
         id: f.id,
         subject: f.subject.name,
