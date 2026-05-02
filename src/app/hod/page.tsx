@@ -53,7 +53,16 @@ export default function HODDashboard() {
     <div className={styles.container}>
       <header className={styles.header}>
         <h2>HOD Dashboard - Dept. Analytics</h2>
-        <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        <div style={{display: 'flex', gap: '1rem'}}>
+          <button 
+            onClick={() => window.open('/api/admin/export', '_blank')} 
+            className="btn-primary" 
+            style={{backgroundColor: 'var(--accent-green)'}}
+          >
+            Export CSV
+          </button>
+          <button onClick={() => window.location.href = '/'} className="btn-primary" style={{backgroundColor: 'var(--primary-gray)'}}>Logout</button>
+        </div>
       </header>
 
       <div className={styles.mainGrid}>
