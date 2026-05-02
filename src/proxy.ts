@@ -6,7 +6,7 @@ import { decrypt } from '@/lib/auth';
 const protectedRoutes = ['/student', '/faculty', '/hod', '/principal'];
 const publicRoutes = ['/login', '/', '/signup'];
 
-export default async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.some(route => path.startsWith(route));
